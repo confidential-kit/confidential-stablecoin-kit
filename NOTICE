@@ -1,0 +1,10 @@
+Confidential Stablecoin Kit
+Copyright 2026 the Stellar Institutional Kit contributors
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository merges three projects of the Stellar Institutional Kit:
+confidential-engine, confidential-viewer and zk-diff-harness. Third-party code
+copied into this repository, if any, is listed here with its source, commit and
+licence. Normal package-manager and git dependencies are not copied code and are
+recorded in the lockfiles and pins/. No third-party code is copied as of 2026-11-24.

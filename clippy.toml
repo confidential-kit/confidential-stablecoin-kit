@@ -1,0 +1,3 @@
+# Test-only unwraps are fine; src code is linted via workspace lints.
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true

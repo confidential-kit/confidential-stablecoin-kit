@@ -1,0 +1,30 @@
+# Node
+node_modules/
+dist/
+out/
+*.log
+
+# Rust
+target/
+**/test_snapshots/
+
+# Local caches and toolchains: large or third-party, never commit
+.cache/
+.tools/
+.toolchain/
+third_party/
+adapters/*/target/
+
+# G-SECRETS: never commit keys
+.env
+.env.*
+!.env.example
+*.secret
+*.key
+.demo-keys/
+
+# Market and engineering research: private until the user decides to publish
+research_notes/
+
+# Ticket logs can be large; CONTRACT, reviews and EVIDENCE stay tracked
+work/*/logs/

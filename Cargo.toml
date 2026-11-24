@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# confidential-stablecoin-kit: DEMO-ONLY, TESTNET-ONLY, unaudited.
+# One Cargo workspace for the engine (sik-ce-*) and harness (sik-zkd-*) crates (docs/adr/ADR-0001-monorepo.md).
+# Kept OUT of this workspace (own [workspace], own Cargo.lock) because their soroban-sdk majors cannot share a lockfile:
+#   adapters/nethermind-main  soroban-sdk 26.1.1
+#   adapters/perch-zk         soroban-sdk 27.0.6
+#   adapters/nethermind-pr38  soroban-sdk 28.0.0
+[workspace]
+resolver = "2"
+members = []
+
+[workspace.package]
+version = "0.0.0"
+license = "Apache-2.0"
+publish = false
+rust-version = "1.97"
+repository = "https://github.com/confidential-kit/confidential-stablecoin-kit"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+thiserror = "2"
+clap = { version = "4", features = ["derive"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+# Host binaries (ce CLI, zkd CLI, harness): unwind on panic, keep overflow checks.
+[profile.release]
+overflow-checks = true
+
+# Soroban Wasm (sik-ce-contract): stellar contract build --profile release-wasm
+[profile.release-wasm]
+inherits = "release"
+opt-level = "z"
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true

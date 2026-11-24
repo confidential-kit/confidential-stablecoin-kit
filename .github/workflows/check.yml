@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: Apache-2.0
+name: check
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+        if: hashFiles('pnpm-lock.yaml') != ''
+      - run: pnpm install --frozen-lockfile
+        if: hashFiles('pnpm-lock.yaml') != ''
+      - name: Rust toolchain (from rust-toolchain.toml)
+        run: rustup show active-toolchain
+      - uses: Swatinem/rust-cache@v2
+      - name: All checks
+        shell: bash
+        run: set -o pipefail; bash scripts/check.sh
